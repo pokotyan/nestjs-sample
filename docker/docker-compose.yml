@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - ./pg/:/docker-entrypoint-initdb.d/
+      - pg_db_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: rem
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  pg_db_data:
+    driver_opts:
+      type: none
+      device: /tmp/postgresql
+      o: bind
